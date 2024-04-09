@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "tbl_escola")
 public class Escola implements Serializable {
 
     @Id

@@ -20,6 +20,8 @@ public class Colaborador implements Serializable {
     private String matricula;
     @Column(length = 50, unique = true, nullable = false)
     private String cargo;
+    @Column(length = 11, unique = true, nullable = false)
+    private String telefone;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "funcionario")
     private List<Escola> escolas = new ArrayList<>();
 
@@ -51,6 +53,14 @@ public class Colaborador implements Serializable {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public void addEscola(Escola escola){

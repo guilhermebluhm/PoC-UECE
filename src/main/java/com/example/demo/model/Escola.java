@@ -20,11 +20,8 @@ public class Escola implements Serializable {
     @Column(name = "nome_escola", nullable = false, length = 200, unique = true)
     private String nomeEscola;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Endereco endereco;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Colaborador funcionario;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sala")
+    private Sala sala;
 
     public Escola(String nomeEscola) {
         this.nomeEscola = nomeEscola;
@@ -38,19 +35,11 @@ public class Escola implements Serializable {
         this.nomeEscola = nomeEscola;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Sala getSala() {
+        return sala;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public Colaborador getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Colaborador funcionario) {
-        this.funcionario = funcionario;
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 }

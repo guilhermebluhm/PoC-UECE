@@ -1,30 +1,29 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.model.Colaborador;
-import com.example.demo.model.Escola;
-import com.example.demo.repository.ColaboradorRepository;
+import com.example.demo.model.Pessoa;
 import com.example.demo.repository.EscolaRepository;
-import com.example.demo.service.ColaboradorService;
+import com.example.demo.repository.PessoaRepository;
+import com.example.demo.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColaboradorServiceImpl implements ColaboradorService {
+public class PessoaServiceImpl implements PessoaService {
 
     @Autowired
-    private ColaboradorRepository colab;
+    private PessoaRepository colab;
 
     @Autowired
     private EscolaRepository esc;
 
     @Override
-    public Colaborador saveModel(Colaborador colaborador) {
+    public Pessoa saveModel(Pessoa colaborador) {
         return this.colab.save(colaborador);
     }
 
     @Override
-    public List<Colaborador> findAll() {
+    public List<Pessoa> findAll() {
         if(this.colab.findAll().isEmpty())
             return new ArrayList<>();
         else
@@ -32,13 +31,13 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     }
 
     @Override
-    public Colaborador findById(String id) {
+    public Pessoa findById(String id) {
         return this.colab.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public void updateModel(String id, String numeroTelefone, String cargo) {
-        Colaborador byId = this.findById(id);
+        Pessoa byId = this.findById(id);
         byId.setCargo(cargo);
         byId.setTelefone(numeroTelefone);
         this.colab.save(byId);
@@ -47,15 +46,5 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     @Override
     public void deleteModel(String id) {
         this.colab.deleteById(Long.valueOf(id));
-    }
-
-    @Override
-    public void adicionarColaboradorEscola(String idColaborador, String idEscola) {
-
-        Colaborador byId = this.findById(idColaborador);
-        Escola escola = this.esc.findById(Long.valueOf(idEscola)).orElseThrow(RuntimeException::new);
-        byId.addEscola(escola);
-        this.colab.save(byId);
-
     }
 }

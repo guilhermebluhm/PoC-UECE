@@ -1,11 +1,15 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.io.Serializable;
+
+/*
+    desabilitar temporariamente
+ */
+
+/*
 
 @NoArgsConstructor
 @Entity(name = "tbl_candidato")
@@ -51,3 +55,4 @@ public class Candidato implements Serializable {
         this.deficiencia = deficiencia;
     }
 }
+*/

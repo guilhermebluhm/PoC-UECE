@@ -36,7 +36,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Override
     public void updateModel(String id, String numero) {
         Endereco byId = this.findById(id);
-        byId.setNumero(numero);
+        byId.setLogradouro(numero);
         this.end.save(byId);
     }
 

@@ -51,17 +51,9 @@ public class EscolaServiceImpl implements EscolaService {
     }
 
     @Override
-    public Escola adicionarEnderecoEscola(String idEscola, String idEndereco) {
-
-        Escola escola = null;
-
-        if(this.end.findById(Long.valueOf(idEndereco)).isPresent()){
-            Endereco endereco = this.end.findById(Long.valueOf(idEndereco)).get();
-            escola = this.findById(idEscola);
-            escola.setEndereco(endereco);
-            this.esc.save(escola);
-        }
-
-        return escola;
+    public Escola adicionarSalaEscola(String idEscola, String idSala) {
+        return null;
     }
+
+
 }

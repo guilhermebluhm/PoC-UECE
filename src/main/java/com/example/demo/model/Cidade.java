@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,8 +19,9 @@ public class Cidade implements Serializable {
     private String cidade;
     @Column(unique = true, length = 100)
     private String estado;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Endereco> listaEnderecos = new ArrayList<>();
+
+    @Embedded
+    private Endereco listaEnderecos;
 
     public Cidade(String cidade, String estado) {
         this.cidade = cidade;

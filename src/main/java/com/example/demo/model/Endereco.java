@@ -7,35 +7,29 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@NoArgsConstructor
+@Embeddable
 public class Endereco implements Serializable {
 
+    private final String logradouro;
+    private final String bairro;
+    private final String cep;
 
-    private String logradouro;
-    private String bairro;
-    private String cep;
+    public Endereco(String logradouro, String bairro, String cep) {
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.cep = cep;
+    }
 
     public String getLogradouro() {
         return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
     }
 
     public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
     public String getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
 }

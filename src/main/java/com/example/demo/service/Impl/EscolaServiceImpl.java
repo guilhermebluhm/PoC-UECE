@@ -15,48 +15,56 @@ import java.util.List;
 public class EscolaServiceImpl implements EscolaService {
 
     @Autowired
-    private EscolaRepository esc;
+    private EscolaRepository escolaRepository;
 
     @Autowired
-    private SalaRepository sala;
+    private SalaRepository salaRepository;
 
     @Override
     public Escola saveModel(Escola escola) {
-        return this.esc.save(escola);
+        return this.escolaRepository.save(escola);
     }
 
     @Override
     public List<Escola> findAll() {
-        if(this.esc.findAll().isEmpty())
+        if(this.escolaRepository.findAll().isEmpty())
             return new ArrayList<>();
         else
-            return this.esc.findAll();
+            return this.escolaRepository.findAll();
     }
 
     @Override
     public Escola findById(String id) {
-        return this.esc.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
+        return this.escolaRepository.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public void updateModel(String id, String nomeEscola) {
-        Escola byId = this.findById(id);
-        byId.setNomeEscola(nomeEscola);
-        this.esc.save(byId);
+    public Escola updateModel(String id, String nomeEscola) {
+        Escola escola = this.findById(id);
+        if(escola != null) {
+            escola.setNomeEscola(nomeEscola);
+            return this.escolaRepository.save(escola);
+        }
+        throw new RuntimeException("erro geral da aplicacao - erro generico");
     }
 
     @Override
     public void deleteModel(String id) {
-        this.esc.deleteById(Long.valueOf(id));
+        this.escolaRepository.deleteById(Long.valueOf(id));
     }
 
     @Override
-    public Escola adicionarSalaEscola(String idEscola, String idSala) {
-        Escola byId = this.findById(idEscola);
-        Sala sala1 = this.sala.findById(Long.valueOf(idSala)).get();
-        byId.setListaSala(sala1);
-        this.esc.save(byId);
-        return byId;
+    public Escola addSalaEscola(String idEscola, String idSala) {
+        Escola escola = this.findById(idEscola);
+        if(this.salaRepository.findById(Long.valueOf(idSala)).isPresent()){
+            Sala sala = this.salaRepository.findById(Long.valueOf(idSala)).get();
+            escola.setListaSala(sala);
+            this.escolaRepository.save(escola);
+        }
+        else{
+            throw new RuntimeException("erro geral da aplicacao - descricao generica");
+        }
+        return escola;
     }
 
 

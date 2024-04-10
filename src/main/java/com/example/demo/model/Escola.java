@@ -31,14 +31,6 @@ public class Escola implements Serializable {
         this.nomeEscola = nomeEscola;
     }
 
-    public String getNomeEscola() {
-        return nomeEscola;
-    }
-
-    public void setNomeEscola(String nomeEscola) {
-        this.nomeEscola = nomeEscola;
-    }
-
     public List<Sala> getListaSala() {
         return listaSala;
     }

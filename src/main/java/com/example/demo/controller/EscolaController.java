@@ -25,8 +25,8 @@ public class EscolaController {
     }
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateEscola(@PathVariable String id, @RequestParam("nome") String nome){
-        this.escolaImpl.updateModel(id, nome);
+    public ResponseEntity<String> updateEscola(@PathVariable String id, @RequestParam("nome") String nome){
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.updateModel(id, nome)));
     }
 
     @GetMapping(value = "/all-registry", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,6 +47,6 @@ public class EscolaController {
     @PostMapping(value = "/add-sala/{idEscola}")
     public ResponseEntity<String> addSalaEscola(@PathVariable("idEscola") String idEscola,
                                                       @RequestParam(value = "salaID") String idSala){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.adicionarSalaEscola(idEscola,idSala)));
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.addSalaEscola(idEscola,idSala)));
     }
 }

@@ -22,10 +22,10 @@ public class PessoaController {
     }
 
     @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updatePessoa(@PathVariable String id,
+    public ResponseEntity<String> updatePessoa(@PathVariable String id,
                                @RequestParam(value = "numero-telefone", required = false) String numeroTelefone,
                                @RequestParam(value = "cargo") String cargo){
-        this.pessoaImpl.updateModel(id, numeroTelefone, cargo);
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.updateModel(id, numeroTelefone, cargo)));
     }
 
     @GetMapping(value = "/allRegistry", produces = MediaType.APPLICATION_JSON_VALUE)

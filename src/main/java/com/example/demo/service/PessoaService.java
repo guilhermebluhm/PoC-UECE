@@ -11,6 +11,6 @@ public interface PessoaService {
     Pessoa saveModel(Pessoa colaborador);
     List<Pessoa> findAll();
     Pessoa findById(String id);
-    void updateModel(String id, String numeroTelefone, String cargo);
+    Pessoa updateModel(String id, String numeroTelefone, String cargo);
     void deleteModel(String id);
 }

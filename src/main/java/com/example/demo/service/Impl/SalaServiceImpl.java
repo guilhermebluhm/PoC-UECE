@@ -5,6 +5,7 @@ import com.example.demo.model.Sala;
 import com.example.demo.repository.EscolaRepository;
 import com.example.demo.repository.SalaRepository;
 import com.example.demo.service.SalaService;
+import com.example.demo.utils.ClearningData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,23 +16,23 @@ import java.util.Optional;
 public class SalaServiceImpl implements SalaService {
 
     @Autowired
-    private SalaRepository sl;
-
-    @Autowired
-    private EscolaRepository esc;
+    private SalaRepository salaRepository;
 
     @Override
-    public Sala adicionarSala(Sala sala) {
-        return this.sl.save(sala);
+    public Sala addSala(Sala sala) {
+
+        ClearningData data = new ClearningData();
+        return this.salaRepository.save(sala);
+
     }
 
     @Override
-    public void removerSala(String idSala) {
-        this.sl.deleteById(Long.valueOf(idSala));
+    public void removeSala(String idSala) {
+        this.salaRepository.deleteById(Long.valueOf(idSala));
     }
 
     @Override
-    public List<Sala> todasSalas() {
-        return this.sl.findAll();
+    public List<Sala> allSalas() {
+        return this.salaRepository.findAll();
     }
 }

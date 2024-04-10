@@ -12,8 +12,8 @@ public interface EscolaService {
     Escola saveModel(Escola endereco);
     List<Escola> findAll();
     Escola findById(String id);
-    void updateModel(String id, String nomeEscola);
+    Escola updateModel(String id, String nomeEscola);
     void deleteModel(String id);
-    Escola adicionarSalaEscola(String idEscola, String idSala);
+    Escola addSalaEscola(String idEscola, String idSala);
 
 }

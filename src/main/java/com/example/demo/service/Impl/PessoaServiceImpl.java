@@ -4,6 +4,7 @@ import com.example.demo.model.Pessoa;
 import com.example.demo.repository.EscolaRepository;
 import com.example.demo.repository.PessoaRepository;
 import com.example.demo.service.PessoaService;
+import com.example.demo.utils.ClearningData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,39 +15,44 @@ import java.util.List;
 public class PessoaServiceImpl implements PessoaService {
 
     @Autowired
-    private PessoaRepository colab;
+    private PessoaRepository pessoaRepository;
 
     @Autowired
-    private EscolaRepository esc;
+    private EscolaRepository escolaRepository;
 
     @Override
-    public Pessoa saveModel(Pessoa colaborador) {
-        return this.colab.save(colaborador);
+    public Pessoa saveModel(Pessoa pessoa) {
+
+        ClearningData data = new ClearningData();
+        return this.pessoaRepository.save(pessoa);
     }
 
     @Override
     public List<Pessoa> findAll() {
-        if(this.colab.findAll().isEmpty())
+        if(this.pessoaRepository.findAll().isEmpty())
             return new ArrayList<>();
         else
-            return this.colab.findAll();
+            return this.pessoaRepository.findAll();
     }
 
     @Override
     public Pessoa findById(String id) {
-        return this.colab.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
+        return this.pessoaRepository.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public void updateModel(String id, String numeroTelefone, String cargo) {
-        Pessoa byId = this.findById(id);
-        byId.setCargo(cargo);
-        byId.setTelefone(numeroTelefone);
-        this.colab.save(byId);
+    public Pessoa updateModel(String id, String numeroTelefone, String cargo) {
+        Pessoa pessoa = this.findById(id);
+        if(pessoa != null) {
+            pessoa.setCargo(cargo);
+            pessoa.setTelefone(numeroTelefone);
+            this.pessoaRepository.save(pessoa);
+        }
+        throw new RuntimeException("erro geral da aplicacao - erro generico");
     }
 
     @Override
     public void deleteModel(String id) {
-        this.colab.deleteById(Long.valueOf(id));
+        this.pessoaRepository.deleteById(Long.valueOf(id));
     }
 }

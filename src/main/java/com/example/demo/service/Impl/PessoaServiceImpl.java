@@ -5,10 +5,12 @@ import com.example.demo.repository.EscolaRepository;
 import com.example.demo.repository.PessoaRepository;
 import com.example.demo.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class PessoaServiceImpl implements PessoaService {
 
     @Autowired

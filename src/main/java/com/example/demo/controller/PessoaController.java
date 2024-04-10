@@ -21,7 +21,7 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.colab.saveModel(endereco)));
     }
 
-    @PutMapping(value = "/atualizar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/atualizar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void updateColaborador(@PathVariable String id,
                                @RequestParam(value = "numero-telefone", required = false) String numeroTelefone,
                                @RequestParam(value = "cargo") String cargo){

@@ -1,11 +1,15 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,8 +24,8 @@ public class Escola implements Serializable {
     @Column(name = "nome_escola", nullable = false, length = 200, unique = true)
     private String nomeEscola;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sala")
-    private Sala sala;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Sala> listaSala = new ArrayList<>();
 
     public Escola(String nomeEscola) {
         this.nomeEscola = nomeEscola;
@@ -35,11 +39,11 @@ public class Escola implements Serializable {
         this.nomeEscola = nomeEscola;
     }
 
-    public Sala getSala() {
-        return sala;
+    public List<Sala> getListaSala() {
+        return listaSala;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
+    public void setListaSala(Sala sala) {
+        this.listaSala.add(sala);
     }
 }

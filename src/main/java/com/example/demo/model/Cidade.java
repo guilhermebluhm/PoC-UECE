@@ -10,14 +10,15 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity(name = "tbl_cidade")
 public class Cidade implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, length = 100)
+    @Column(length = 100, nullable = false)
     private String cidade;
-    @Column(unique = true, length = 100)
+    @Column(length = 100, nullable = false)
     private String estado;
 
     @Embedded

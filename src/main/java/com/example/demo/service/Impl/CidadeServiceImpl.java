@@ -4,7 +4,9 @@ import com.example.demo.model.Cidade;
 import com.example.demo.repository.CidadeRepository;
 import com.example.demo.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CidadeServiceImpl implements CidadeService {
 
     @Autowired
@@ -16,7 +18,7 @@ public class CidadeServiceImpl implements CidadeService {
     }
 
     @Override
-    public void removerCidadde(String idCidade) {
+    public void removerCidade(String idCidade) {
         this.cid.deleteById(Long.valueOf(idCidade));
     }
 }

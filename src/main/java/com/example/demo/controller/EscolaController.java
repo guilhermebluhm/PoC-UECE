@@ -44,4 +44,9 @@ public class EscolaController {
         this.esc.deleteModel(id);
     }
 
+    @PostMapping(value = "/adicionar-sala/{idEscola}")
+    public ResponseEntity<String> adicionarSalaEscola(@PathVariable("idEscola") String idEscola,
+                                                      @RequestParam(value = "salaID") String idSala){
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.esc.adicionarSalaEscola(idEscola,idSala)));
+    }
 }

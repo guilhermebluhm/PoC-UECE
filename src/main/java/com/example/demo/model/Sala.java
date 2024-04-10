@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,18 +26,5 @@ public class Sala implements Serializable {
     private String salaEscola;
     @Column(length = 10, nullable = false)
     private String salaCev;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private List<Escola> escolas = new ArrayList<>();
-
-    public void addSalaEscola(Escola escola){
-        escolas.add(escola);
-        escola.setSala(this);
-    }
-
-    public void removeSalaEscola(Escola escola){
-        escolas.remove(escola);
-        escola.setSala(null);
-    }
 
 }

@@ -6,10 +6,12 @@ import com.example.demo.repository.EscolaRepository;
 import com.example.demo.repository.SalaRepository;
 import com.example.demo.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class SalaServiceImpl implements SalaService {
 
     @Autowired
@@ -26,18 +28,6 @@ public class SalaServiceImpl implements SalaService {
     @Override
     public void removerSala(String idSala) {
         this.sl.deleteById(Long.valueOf(idSala));
-    }
-
-    @Override
-    public void adicionarSalaEscola(String idSala, String idEscola) {
-        Optional<Escola> byId1 = this.esc.findById(Long.valueOf(idSala));
-        Sala byId = this.sl.findById(Long.valueOf(idSala)).get();
-
-        if(byId1.isPresent()){
-            byId.addSalaEscola(byId1.get());
-            this.sl.save(byId);
-        }
-
     }
 
     @Override

@@ -44,7 +44,7 @@ public class EscolaController {
         this.escolaImpl.deleteModel(id);
     }
 
-    @PostMapping(value = "/add-sala/{idEscola}")
+    @PostMapping(value = "/add-sala/{id}")
     public ResponseEntity<String> addSalaEscola(@PathVariable("idEscola") String idEscola,
                                                       @RequestParam(value = "salaID") String idSala){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.addSalaEscola(idEscola,idSala)));

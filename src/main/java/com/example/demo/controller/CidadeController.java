@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
 public class CidadeController {
 
     @Autowired
-    private CidadeServiceImpl cidade;
+    private CidadeServiceImpl cidadeImpl;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<String> addCidade(@RequestBody Cidade cidade){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.cidade.adicionarCidade(cidade)));
+    public ResponseEntity<String> saveCidade(@RequestBody Cidade cidade){
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.cidadeImpl.adicionarCidade(cidade)));
     }
 
     @DeleteMapping(value = "/delete")
-    public void remCidade(String idCidade){
-        this.cidade.removerCidade(idCidade);
+    public void removeCidade(String idCidade){
+        this.cidadeImpl.removerCidade(idCidade);
     }
 
 }

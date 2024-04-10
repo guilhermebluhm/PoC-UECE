@@ -17,21 +17,21 @@ import java.util.List;
 public class SalaController {
 
     @Autowired
-    private SalaServiceImpl sl;
+    private SalaServiceImpl salaImpl;
 
-    @PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveEscola(@RequestBody Sala sala){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.sl.adicionarSala(sala)));
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.salaImpl.adicionarSala(sala)));
     }
 
-    @GetMapping(value = "/todos", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/allRegistry", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Sala> allEscola(){
-        return this.sl.todasSalas();
+        return this.salaImpl.todasSalas();
     }
 
-    @DeleteMapping(value = "/deletar")
+    @DeleteMapping(value = "/delete")
     public void deleteEscola(@RequestParam String id){
-        this.sl.removerSala(id);
+        this.salaImpl.removerSala(id);
     }
 
 }

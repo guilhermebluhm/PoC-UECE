@@ -14,33 +14,33 @@ import org.springframework.web.bind.annotation.*;
 public class PessoaController {
 
     @Autowired
-    private PessoaServiceImpl colab;
+    private PessoaServiceImpl pessoaImpl;
 
-    @PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveColaborador(@RequestBody Pessoa endereco){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.colab.saveModel(endereco)));
+    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> savePessoa(@RequestBody Pessoa endereco){
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.saveModel(endereco)));
     }
 
-    @PutMapping(value = "/atualizar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updateColaborador(@PathVariable String id,
+    @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updatePessoa(@PathVariable String id,
                                @RequestParam(value = "numero-telefone", required = false) String numeroTelefone,
                                @RequestParam(value = "cargo") String cargo){
-        this.colab.updateModel(id, numeroTelefone, cargo);
+        this.pessoaImpl.updateModel(id, numeroTelefone, cargo);
     }
 
-    @GetMapping(value = "/todos", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String allColaboradores(){
-        return new Gson().toJson(this.colab.findAll());
+    @GetMapping(value = "/allRegistry", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String allPessoa(){
+        return new Gson().toJson(this.pessoaImpl.findAll());
     }
 
-    @GetMapping(value = "/especifico/{id}")
-    public String findByEndereco(@PathVariable String id){
-        return new Gson().toJson(this.colab.findById(id));
+    @GetMapping(value = "/specific/{id}")
+    public String findSpecificPessoa(@PathVariable String id){
+        return new Gson().toJson(this.pessoaImpl.findById(id));
     }
 
-    @DeleteMapping(value = "/deletar")
+    @DeleteMapping(value = "/delete")
     public void deleteEndereco(@RequestParam String id){
-        this.colab.deleteModel(id);
+        this.pessoaImpl.deleteModel(id);
     }
 
 }

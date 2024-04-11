@@ -45,11 +45,11 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Pessoa updateModel(String id, String numeroTelefone, String cargo) {
+    public Pessoa updateModel(String id, String telefone, String cargo) {
         Pessoa pessoa = this.findById(id);
         if(pessoa != null) {
             pessoa.setCargo(cargo);
-            pessoa.setTelefone(numeroTelefone);
+            pessoa.setTelefone(telefone);
             this.pessoaRepository.save(pessoa);
         }
         throw new RuntimeException("erro geral da aplicacao - erro generico");

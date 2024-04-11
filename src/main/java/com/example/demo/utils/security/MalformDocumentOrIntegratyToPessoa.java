@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class MalformCpfToPessoa {
+public class MalformDocumentOrIntegratyToPessoa {
 
     @ExceptionHandler(ObjectMalformed.class)
     public ResponseEntity<FieldForHandlerError> objectErrorNotFoundHandler(ObjectMalformed e,

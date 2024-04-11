@@ -52,7 +52,7 @@ public class PessoaServiceImpl implements PessoaService {
             pessoa.setTelefone(telefone);
             this.pessoaRepository.save(pessoa);
         }
-        throw new RuntimeException("erro geral da aplicacao - erro generico");
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NULO.toString());
     }
 
     @Override

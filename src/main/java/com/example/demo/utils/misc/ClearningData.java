@@ -12,6 +12,10 @@ public class ClearningData {
 
     public static Pessoa teste(Pessoa pessoa){
 
+        pessoa.setTelefone(pessoa.getTelefone().replace(" ",""));
+        pessoa.setDocumento(pessoa.getDocumento().replace(" ",""));
+        pessoa.setMatricula(pessoa.getMatricula().replace(" ",""));
+
         int bp = 99;
         if(pessoa.getCargo() == null
                 || (pessoa.getMatricula() == null || pessoa.getMatricula().isEmpty())

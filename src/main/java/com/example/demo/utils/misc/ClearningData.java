@@ -4,11 +4,10 @@ import com.example.demo.model.Pessoa;
 import com.example.demo.utils.enums.ErrorTypes;
 import com.example.demo.utils.enums.RegexTypes;
 import com.example.demo.utils.security.ObjectMalformed;
-import com.example.demo.utils.security.ObjectNotFoundInSearch;
 
 public class ClearningData {
 
-    public static Pessoa teste(Pessoa pessoa){
+    public static Pessoa integratyCheck(Pessoa pessoa){
 
         pessoa.setTelefone(pessoa.getTelefone().replace(" ",""));
         pessoa.setDocumento(pessoa.getDocumento().replace(" ",""));

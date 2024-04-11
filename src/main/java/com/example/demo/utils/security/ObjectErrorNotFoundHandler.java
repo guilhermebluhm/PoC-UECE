@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ObjectErrorNotFoundHandler {
 
-    @ExceptionHandler(ObjectNotFoundInSearch.class)
-    public ResponseEntity<FieldForHandlerError> objectErrorNotFoundHandler(ObjectNotFoundInSearch e,
+    @ExceptionHandler(ObjectNotFoundInSearchOrRuntimeError.class)
+    public ResponseEntity<FieldForHandlerError> objectErrorNotFoundHandler(ObjectNotFoundInSearchOrRuntimeError e,
                                                                            HttpServletRequest req){
         FieldForHandlerError err = new FieldForHandlerError(LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),

@@ -6,7 +6,7 @@ import com.example.demo.repository.PessoaRepository;
 import com.example.demo.service.PessoaService;
 import com.example.demo.utils.enums.ErrorTypes;
 import com.example.demo.utils.misc.ClearningData;
-import com.example.demo.utils.security.ObjectNotFoundInSearch;
+import com.example.demo.utils.security.ObjectNotFoundInSearchOrRuntimeError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +26,9 @@ public class PessoaServiceImpl implements PessoaService {
     public Pessoa saveModel(Pessoa pessoa) {
 
         if(pessoa != null) {
-            this.pessoaRepository.save(ClearningData.teste(pessoa));
+            this.pessoaRepository.save(ClearningData.integratyCheck(pessoa));
         }
-        throw new ObjectNotFoundInSearch(ErrorTypes.OBJETO_NULO.toString());
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NULO.toString());
     }
 
     @Override

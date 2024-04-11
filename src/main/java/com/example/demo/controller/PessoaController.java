@@ -10,15 +10,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/colaborador")
+@RequestMapping(value = "/pessoa")
 public class PessoaController {
 
     @Autowired
     private PessoaServiceImpl pessoaImpl;
 
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> savePessoa(@RequestBody Pessoa endereco){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.saveModel(endereco)));
+    public ResponseEntity<String> savePessoa(@RequestBody(required = false) Pessoa pessoa){
+
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.saveModel(pessoa)));
+
     }
 
     @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -5,6 +5,7 @@ import com.example.demo.repository.EscolaRepository;
 import com.example.demo.repository.PessoaRepository;
 import com.example.demo.service.PessoaService;
 import com.example.demo.utils.ClearningData;
+import com.example.demo.utils.security.ObjectNotFoundInSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +24,11 @@ public class PessoaServiceImpl implements PessoaService {
     @Override
     public Pessoa saveModel(Pessoa pessoa) {
 
-        ClearningData data = new ClearningData();
-        return this.pessoaRepository.save(pessoa);
+        if(pessoa != null) {
+            Pessoa teste = ClearningData.teste(pessoa);
+            return this.pessoaRepository.save(teste);
+        }
+        throw new ObjectNotFoundInSearch("objeto nulo passado");
     }
 
     @Override

@@ -31,7 +31,6 @@ public class Pessoa implements Serializable {
     //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "funcionario")
     //private List<Escola> escolas = new ArrayList<>();
 
-
     public Pessoa(String nome, String matricula, String cargo, String telefone, String cpf) {
         this.nome = nome;
         this.matricula = matricula;
@@ -39,4 +38,5 @@ public class Pessoa implements Serializable {
         this.telefone = telefone;
         this.cpf = cpf;
     }
+
 }

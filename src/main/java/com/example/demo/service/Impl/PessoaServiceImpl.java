@@ -15,6 +15,7 @@ import java.util.List;
 @Component
 public class PessoaServiceImpl implements PessoaService {
 
+    public static final String CLEAR_REGEX_CPF_CNPJ = "[\\.\\-\\/]";
     @Autowired
     private PessoaRepository pessoaRepository;
 
@@ -24,9 +25,11 @@ public class PessoaServiceImpl implements PessoaService {
     @Override
     public Pessoa saveModel(Pessoa pessoa) {
 
+        String documento = pessoa.getDocumento();
+        pessoa.setDocumento(documento.replaceAll(CLEAR_REGEX_CPF_CNPJ, ""));
+
         if(pessoa != null) {
-            Pessoa teste = ClearningData.teste(pessoa);
-            return this.pessoaRepository.save(teste);
+            return this.pessoaRepository.save(ClearningData.teste(pessoa));
         }
         throw new ObjectNotFoundInSearch("objeto nulo passado");
     }

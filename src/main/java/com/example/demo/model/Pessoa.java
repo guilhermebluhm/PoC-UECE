@@ -20,23 +20,23 @@ public class Pessoa implements Serializable {
     private String nome;
     @Column(length = 25, unique = true, nullable = false)
     private String matricula;
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(length = 50, nullable = false)
     private String cargo;
     @Column(length = 11, unique = true, nullable = false)
     private String telefone;
     @Column(length = 15, unique = true, nullable = false)
-    private String cpf;
+    private String documento;
 
     //sera definido posteriormente
     //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "funcionario")
     //private List<Escola> escolas = new ArrayList<>();
 
-    public Pessoa(String nome, String matricula, String cargo, String telefone, String cpf) {
+    public Pessoa(String nome, String matricula, String cargo, String telefone, String documento) {
         this.nome = nome;
         this.matricula = matricula;
         this.cargo = cargo;
         this.telefone = telefone;
-        this.cpf = cpf;
+        this.documento = documento;
     }
 
 }

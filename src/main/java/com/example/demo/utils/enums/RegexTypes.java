@@ -13,6 +13,7 @@ public enum RegexTypes {
         this.codeType = code;
     }
 
-
-
+    public String getCodeType() {
+        return codeType;
+    }
 }

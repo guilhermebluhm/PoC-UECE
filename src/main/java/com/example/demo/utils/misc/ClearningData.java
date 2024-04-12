@@ -9,15 +9,15 @@ public class ClearningData {
 
     public static Pessoa integratyCheck(Pessoa pessoa){
 
-        pessoa.setTelefone(pessoa.getTelefone().replace(" ",""));
-        pessoa.setDocumento(pessoa.getDocumento().replace(" ",""));
-        pessoa.setMatricula(pessoa.getMatricula().replace(" ",""));
+        pessoa.setTelefone(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getTelefone()));
+        pessoa.setDocumento(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getDocumento()));
+        pessoa.setMatricula(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getMatricula()));
 
         checkIntegrityData(pessoa);
         correctDataInField(pessoa);
 
         if(pessoa.getDocumento().length() == 14 || pessoa.getDocumento().length() == 18){
-            if(!pessoa.getDocumento().matches(RegexTypes.REGEX_VALIDATE_CPF_CNPJ.toString()))
+            if(!pessoa.getDocumento().matches(RegexTypes.REGEX_VALIDATE_CPF_CNPJ.getCodeType()))
                 throw new ObjectMalformed(ErrorTypes.CPF_CNPJ_INVALIDO.toString());
         }
 
@@ -26,7 +26,7 @@ public class ClearningData {
 
     }
 
-    private static void checkIntegrityData(Pessoa pessoa){
+    public static void checkIntegrityData(Pessoa pessoa){
 
         if((pessoa.getCargo() == null || pessoa.getCargo().isEmpty())
                 || (pessoa.getMatricula() == null || pessoa.getMatricula().isEmpty())
@@ -39,12 +39,14 @@ public class ClearningData {
 
     }
 
-    private static void correctDataInField(Pessoa pessoa){
+    public static void correctDataInField(Pessoa pessoa){
 
-        if(!pessoa.getNome().matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.toString())
-                || !pessoa.getCargo().matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.toString())
-                || !pessoa.getTelefone().matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.toString())
-                || !pessoa.getMatricula().matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.toString())){
+        if(
+                !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getNome()).matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                || !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getCargo()).matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                || !pessoa.getTelefone().trim().matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
+                || !pessoa.getMatricula().matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
+        ){
 
             throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
 

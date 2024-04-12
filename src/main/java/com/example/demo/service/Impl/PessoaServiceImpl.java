@@ -23,12 +23,15 @@ public class PessoaServiceImpl implements PessoaService {
     private EscolaRepository escolaRepository;
 
     @Override
-    public Pessoa saveModel(Pessoa pessoa) {
+    public Pessoa savePessoa(Pessoa pessoa) {
 
-        if(pessoa != null) {
+
+        if (pessoa != null) {
             this.pessoaRepository.save(ClearningData.integratyCheck(pessoa));
         }
+
         throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NULO.toString());
+
     }
 
     @Override
@@ -40,23 +43,29 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Pessoa findById(String id) {
-        return this.pessoaRepository.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
+    public Pessoa findByIdPessoa(String id) {
+
+        if (this.pessoaRepository.findById(Long.valueOf(id)).isPresent()) {
+                return this.pessoaRepository.findById(Long.valueOf(id)).get();
+        }
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
+
     }
 
     @Override
-    public Pessoa updateModel(String id, String telefone, String cargo) {
-        Pessoa pessoa = this.findById(id);
+    public Pessoa updatePessoa(String id, String telefone, String cargo) {
+        Pessoa pessoa = this.findByIdPessoa(id);
         if(pessoa != null) {
             pessoa.setCargo(cargo);
             pessoa.setTelefone(telefone);
+            ClearningData.correctDataInField(pessoa);
             this.pessoaRepository.save(pessoa);
         }
-        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NULO.toString());
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
     }
 
     @Override
-    public void deleteModel(String id) {
+    public void deletePessoa(String id) {
         this.pessoaRepository.deleteById(Long.valueOf(id));
     }
 }

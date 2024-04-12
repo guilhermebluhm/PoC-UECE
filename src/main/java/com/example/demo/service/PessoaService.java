@@ -8,9 +8,9 @@ import java.util.List;
 @Service
 public interface PessoaService {
 
-    Pessoa saveModel(Pessoa colaborador);
+    Pessoa savePessoa(Pessoa colaborador);
     List<Pessoa> findAll();
-    Pessoa findById(String id);
-    Pessoa updateModel(String id, String numeroTelefone, String cargo);
-    void deleteModel(String id);
+    Pessoa findByIdPessoa(String id);
+    Pessoa updatePessoa(String id, String numeroTelefone, String cargo);
+    void deletePessoa(String id);
 }

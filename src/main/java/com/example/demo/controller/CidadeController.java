@@ -17,12 +17,12 @@ public class CidadeController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<String> saveCidade(@RequestBody Cidade cidade){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.cidadeImpl.addCidade(cidade)));
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.cidadeImpl.saveCidade(cidade)));
     }
 
     @DeleteMapping(value = "/delete")
     public void removeCidade(String idCidade){
-        this.cidadeImpl.removeCidade(idCidade);
+        this.cidadeImpl.deleteCidade(idCidade);
     }
 
 }

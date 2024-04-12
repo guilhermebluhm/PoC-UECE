@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CidadeService {
 
-    Cidade addCidade(Cidade cidade);
-    void removeCidade(String idCidade);
+    Cidade saveCidade(Cidade cidade);
+    void deleteCidade(String idCidade);
 
 }

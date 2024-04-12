@@ -22,7 +22,7 @@ public class Cidade implements Serializable {
     private String estado;
 
     @Embedded
-    private Endereco listaEnderecos;
+    private Endereco endereco;
 
     public Cidade(String cidade, String estado) {
         this.cidade = cidade;

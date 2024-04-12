@@ -1,11 +1,18 @@
 package com.example.demo.utils.misc;
 
+import com.example.demo.model.Cidade;
 import com.example.demo.model.Pessoa;
 import com.example.demo.utils.enums.ErrorTypes;
 import com.example.demo.utils.enums.RegexTypes;
 import com.example.demo.utils.security.ObjectMalformed;
 
 public class ClearningData {
+
+    /*
+        levantar a possibilidade de tornar uma classe
+        abstrata para checar por instanceof e validar de acordo
+        com o tipo de objeto passado
+    */
 
     public static Pessoa integratyCheck(Pessoa pessoa){
 
@@ -14,7 +21,7 @@ public class ClearningData {
         pessoa.setMatricula(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getMatricula()));
 
         checkIntegrityData(pessoa);
-        correctDataInField(pessoa);
+        correctDataInField(pessoa, null);
 
         if(pessoa.getDocumento().length() == 14 || pessoa.getDocumento().length() == 18){
             if(!pessoa.getDocumento().matches(RegexTypes.REGEX_VALIDATE_CPF_CNPJ.getCodeType()))
@@ -39,16 +46,43 @@ public class ClearningData {
 
     }
 
-    public static void correctDataInField(Pessoa pessoa){
+    public static void correctDataInField(Pessoa pessoa, Cidade cidade){
 
-        if(
-                !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getNome()).matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
-                || !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getCargo()).matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
-                || !pessoa.getTelefone().trim().matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
-                || !pessoa.getMatricula().matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
-        ){
+        if(pessoa != null) {
+            if (
+                    !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getNome())
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                            || !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getCargo())
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                            || !pessoa.getTelefone().trim()
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
+                            || !pessoa.getMatricula()
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
+            ) {
 
-            throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
+                throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
+
+            }
+        }
+        else if(cidade != null){
+
+            if (
+
+                            !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getCidade())
+                                    .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                            || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEstado())
+                                    .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                            || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEndereco().getBairro())
+                                    .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                            || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEndereco().getCep())
+                                    .matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
+                            || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEndereco().getLogradouro())
+                                    .matches(RegexTypes.CHECK_REGEX_TO_ALPHABETIC_AND_NUMERIC.getCodeType())
+            ) {
+
+                throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
+
+            }
 
         }
 

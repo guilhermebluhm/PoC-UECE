@@ -59,7 +59,7 @@ public class PessoaServiceImpl implements PessoaService {
         if(pessoa != null) {
             pessoa.setCargo(cargo);
             pessoa.setTelefone(telefone);
-            ClearningData.correctDataInField(pessoa);
+            ClearningData.correctDataInField(pessoa,null);
             this.pessoaRepository.save(pessoa);
         }
         throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());

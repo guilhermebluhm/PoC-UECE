@@ -7,6 +7,7 @@ import com.example.demo.service.PessoaService;
 import com.example.demo.utils.enums.ErrorTypes;
 import com.example.demo.utils.misc.ClearningData;
 import com.example.demo.utils.security.ObjectNotFoundInSearchOrRuntimeError;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -66,6 +67,9 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     public void deletePessoa(String id) {
-        this.pessoaRepository.deleteById(Long.valueOf(id));
+        if(this.pessoaRepository.findById(Long.valueOf(id)).isPresent()){
+            this.pessoaRepository.delete(this.pessoaRepository.findById(Long.valueOf(id)).get());
+        }
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
     }
 }

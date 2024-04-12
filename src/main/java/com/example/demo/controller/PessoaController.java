@@ -74,10 +74,15 @@ public class PessoaController {
         }
     }
 
-    @DeleteMapping(value = "/delete")
-    public ResponseEntity<String> deletePessoa(@RequestParam String id){
-        this.pessoaImpl.deletePessoa(id);
-        return ResponseEntity.status(HttpStatus.OK).body("deletado com sucesso");
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<String> deletePessoa(@PathVariable String id){
+        try {
+            this.pessoaImpl.deletePessoa(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson("registro deletado com sucesso !"));
+        }
+        catch (ObjectNotFoundInSearchOrRuntimeError e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Gson().toJson(e.getMessage()));
+        }
     }
 
 }

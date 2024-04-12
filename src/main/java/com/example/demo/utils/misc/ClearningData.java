@@ -8,12 +8,6 @@ import com.example.demo.utils.security.ObjectMalformed;
 
 public class ClearningData {
 
-    /*
-        levantar a possibilidade de tornar uma classe
-        abstrata para checar por instanceof e validar de acordo
-        com o tipo de objeto passado
-    */
-
     public static Pessoa integratyCheck(Pessoa pessoa){
 
         pessoa.setTelefone(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getTelefone()));
@@ -47,7 +41,6 @@ public class ClearningData {
     }
 
     public static void correctDataInField(Pessoa pessoa, Cidade cidade){
-
         if(pessoa != null) {
             if (
                     !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getNome())
@@ -59,15 +52,12 @@ public class ClearningData {
                             || !pessoa.getMatricula()
                             .matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
             ) {
-
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
-
             }
         }
         else if(cidade != null){
 
             if (
-
                             !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getCidade())
                                     .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
                             || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEstado())
@@ -79,13 +69,9 @@ public class ClearningData {
                             || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEndereco().getLogradouro())
                                     .matches(RegexTypes.CHECK_REGEX_TO_ALPHABETIC_AND_NUMERIC.getCodeType())
             ) {
-
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
-
             }
-
         }
-
     }
 
 }

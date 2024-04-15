@@ -18,44 +18,48 @@ public class PessoaController {
     @Autowired
     private PessoaServiceImpl pessoaImpl;
 
+    private final Gson gson = new Gson();
+
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> savePessoa(@RequestBody(required = false) Pessoa pessoa){
 
+        String jsonResponse = gson.toJson(this.pessoaImpl.savePessoa(pessoa));
+
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.savePessoa(pessoa)));
+            return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
         }
         catch (ObjectMalformed e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Gson().toJson(this.pessoaImpl.savePessoa(pessoa)));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(jsonResponse);
         }
         catch (ObjectNotFoundInSearchOrRuntimeError e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Gson().toJson(this.pessoaImpl.savePessoa(pessoa)));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
         }
+
     }
 
     @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updatePessoa(@PathVariable String id,
+    public ResponseEntity<String> updatePessoa(
+                               @PathVariable String id,
                                @RequestParam(value = "numero-telefone", required = false) String numeroTelefone,
-                                               @RequestParam(value = "cargo") String cargo){
+                               @RequestParam(value = "cargo") String cargo){
+
+        String jsonResponse = gson.toJson(this.pessoaImpl
+                .updatePessoa(id, numeroTelefone, cargo));
+
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new Gson()
-                            .toJson(this.pessoaImpl
-                                    .updatePessoa(id, numeroTelefone, cargo)));
+                    .body(jsonResponse);
         }
         catch (ObjectNotFoundInSearchOrRuntimeError e){
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new Gson()
-                            .toJson(this.pessoaImpl
-                                    .updatePessoa(id, numeroTelefone, cargo)));
+                    .body(jsonResponse);
         }
         catch (ObjectMalformed e){
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Gson()
-                            .toJson(this.pessoaImpl
-                                    .updatePessoa(id, numeroTelefone, cargo)));
+                    .body(jsonResponse);
         }
     }
 
@@ -66,11 +70,14 @@ public class PessoaController {
 
     @GetMapping(value = "/specific/{id}")
     public ResponseEntity<String> findSpecificPessoa(@PathVariable String id){
+
+        String jsonResponse = gson.toJson(this.pessoaImpl.findByIdPessoa(id));
+
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.findByIdPessoa(id)));
+            return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
         }
         catch (ObjectNotFoundInSearchOrRuntimeError e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Gson().toJson(this.pessoaImpl.findByIdPessoa(id)));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
         }
     }
 

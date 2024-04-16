@@ -17,12 +17,12 @@ public class CidadeController {
     private CidadeServiceImpl cidadeImpl;
     private final Gson gson = new Gson();
 
-    @PostMapping(value = "/save")
+/*    @PostMapping(value = "/save")
     public ResponseEntity<String> saveCidade(@RequestBody Cidade cidade){
 
         String jsonResponse = gson.toJson(this.cidadeImpl.saveCidade(cidade));
         return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-    }
+    }*/
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> removeCidade(@PathVariable String id){

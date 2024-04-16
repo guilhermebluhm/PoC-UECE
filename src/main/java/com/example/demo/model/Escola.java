@@ -26,7 +26,8 @@ public class Escola implements Serializable {
 
     private Boolean disponivel;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sala_id", referencedColumnName = "id")
     private List<Sala> listaSala = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -41,7 +42,15 @@ public class Escola implements Serializable {
         return listaSala;
     }
 
-    public void setListaSala(Sala sala) {
-        this.listaSala.add(sala);
+    public void setListaSala(List<Sala> listaSala) {
+        this.listaSala = listaSala;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }

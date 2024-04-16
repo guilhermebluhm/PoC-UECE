@@ -61,12 +61,13 @@ public class EscolaServiceImpl implements EscolaService {
         throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
     }
 
+    //refatorar esse metodo para permitir 1 ou N salas
     @Override
     public Escola addSalaEscola(String idEscola, String idSala) {
         Escola escola = this.findById(idEscola);
         if(this.salaRepository.findById(Long.valueOf(idSala)).isPresent()){
             Sala sala = this.salaRepository.findById(Long.valueOf(idSala)).get();
-            escola.setListaSala(sala);
+            //escola.setListaSala(sala);
             this.escolaRepository.save(escola);
         }
         else{

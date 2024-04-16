@@ -19,10 +19,10 @@ public class SalaController {
     @Autowired
     private SalaServiceImpl salaImpl;
 
-    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+/*    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveEscola(@RequestBody Sala sala){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.salaImpl.addSala(sala)));
-    }
+    }*/
 
     @GetMapping(value = "/allRegistry", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Sala> allEscola(){

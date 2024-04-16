@@ -56,13 +56,10 @@ public class PessoaServiceImpl implements PessoaService {
     @Override
     public Pessoa updatePessoa(String id, String telefone, String cargo) {
         Pessoa pessoa = this.findByIdPessoa(id);
-        if(pessoa != null) {
-            pessoa.setCargo(cargo);
-            pessoa.setTelefone(telefone);
-            ClearningData.correctDataInField(pessoa,null);
-            this.pessoaRepository.save(pessoa);
-        }
-        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
+        pessoa.setCargo(cargo);
+        pessoa.setTelefone(telefone);
+        ClearningData.correctDataInField(pessoa,null, null);
+        return this.pessoaRepository.save(pessoa);
     }
 
     @Override

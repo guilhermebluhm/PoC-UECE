@@ -5,6 +5,9 @@ import com.example.demo.model.Sala;
 import com.example.demo.repository.EscolaRepository;
 import com.example.demo.repository.SalaRepository;
 import com.example.demo.service.EscolaService;
+import com.example.demo.utils.enums.ErrorTypes;
+import com.example.demo.utils.misc.ClearningData;
+import com.example.demo.utils.security.ObjectNotFoundInSearchOrRuntimeError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,36 +24,41 @@ public class EscolaServiceImpl implements EscolaService {
     private SalaRepository salaRepository;
 
     @Override
-    public Escola saveModel(Escola escola) {
+    public Escola saveEscola(Escola escola) {
         return this.escolaRepository.save(escola);
     }
 
     @Override
     public List<Escola> findAll() {
-        if(this.escolaRepository.findAll().isEmpty())
+        List<Escola> allEscolas = this.escolaRepository.findAll();
+        if(allEscolas.isEmpty())
             return new ArrayList<>();
         else
-            return this.escolaRepository.findAll();
+            return allEscolas;
     }
 
     @Override
     public Escola findById(String id) {
-        return this.escolaRepository.findById(Long.valueOf(id)).orElseThrow(RuntimeException::new);
-    }
-
-    @Override
-    public Escola updateModel(String id, String nomeEscola) {
-        Escola escola = this.findById(id);
-        if(escola != null) {
-            escola.setNomeEscola(nomeEscola);
-            return this.escolaRepository.save(escola);
+        if (this.escolaRepository.findById(Long.valueOf(id)).isPresent()) {
+            return this.escolaRepository.findById(Long.valueOf(id)).get();
         }
-        throw new RuntimeException("erro geral da aplicacao - erro generico");
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
     }
 
     @Override
-    public void deleteModel(String id) {
-        this.escolaRepository.deleteById(Long.valueOf(id));
+    public Escola updateEscola(String id, String nomeEscola) {
+        Escola escola = this.findById(id);
+        escola.setNomeEscola(nomeEscola);
+        ClearningData.correctDataInField(null,null,escola);
+        return this.escolaRepository.save(escola);
+    }
+
+    @Override
+    public void deleteEscola(String id) {
+        if(this.escolaRepository.findById(Long.valueOf(id)).isPresent()){
+            this.escolaRepository.delete(this.escolaRepository.findById(Long.valueOf(id)).get());
+        }
+        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
     }
 
     @Override

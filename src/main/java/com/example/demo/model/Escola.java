@@ -24,8 +24,14 @@ public class Escola implements Serializable {
     @Column(name = "nome_escola", nullable = false, length = 200, unique = true)
     private String nomeEscola;
 
+    private Boolean disponivel;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Sala> listaSala = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cidade_id", referencedColumnName = "id")
+    public Cidade cidade;
 
     public Escola(String nomeEscola) {
         this.nomeEscola = nomeEscola;

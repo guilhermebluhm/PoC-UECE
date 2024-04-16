@@ -1,6 +1,7 @@
 package com.example.demo.utils.misc;
 
 import com.example.demo.model.Cidade;
+import com.example.demo.model.Escola;
 import com.example.demo.model.Pessoa;
 import com.example.demo.utils.enums.ErrorTypes;
 import com.example.demo.utils.enums.RegexTypes;
@@ -15,7 +16,7 @@ public class ClearningData {
         pessoa.setMatricula(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getMatricula()));
 
         checkIntegrityData(pessoa);
-        correctDataInField(pessoa, null);
+        correctDataInField(pessoa, null, null);
 
         if(pessoa.getDocumento().length() == 14 || pessoa.getDocumento().length() == 18){
             if(!pessoa.getDocumento().matches(RegexTypes.REGEX_VALIDATE_CPF_CNPJ.getCodeType()))
@@ -40,7 +41,7 @@ public class ClearningData {
 
     }
 
-    public static void correctDataInField(Pessoa pessoa, Cidade cidade){
+    public static void correctDataInField(Pessoa pessoa, Cidade cidade, Escola escola){
         if(pessoa != null) {
             if (
                     !RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getNome())
@@ -68,6 +69,15 @@ public class ClearningData {
                                     .matches(RegexTypes.CHECK_REGEX_TO_ONLY_NUMERIC.getCodeType())
                             || !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getEndereco().getLogradouro())
                                     .matches(RegexTypes.CHECK_REGEX_TO_ALPHABETIC_AND_NUMERIC.getCodeType())
+            ) {
+                throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
+            }
+        }
+
+        else if(escola != null){
+            if (
+                    !RemoveWhiteSpacesAndMergeDataToValidate.getData(escola.getNomeEscola())
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
             ) {
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
             }

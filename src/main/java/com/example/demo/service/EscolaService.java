@@ -9,11 +9,11 @@ import java.util.List;
 @Service
 public interface EscolaService {
 
-    Escola saveModel(Escola endereco);
+    Escola saveEscola(Escola endereco);
     List<Escola> findAll();
     Escola findById(String id);
-    Escola updateModel(String id, String nomeEscola);
-    void deleteModel(String id);
+    Escola updateEscola(String id, String nomeEscola);
+    void deleteEscola(String id);
     Escola addSalaEscola(String idEscola, String idSala);
 
 }

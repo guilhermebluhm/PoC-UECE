@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Endereco;
 import com.example.demo.model.Escola;
 import com.example.demo.service.Impl.EscolaServiceImpl;
+import com.example.demo.utils.security.ObjectNotFoundInSearchOrRuntimeError;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,35 +18,45 @@ public class EscolaController {
 
     @Autowired
     private EscolaServiceImpl escolaImpl;
+    private final Gson gson = new Gson();
 
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveEscola(@RequestBody Escola escola){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.saveModel(escola)));
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.saveEscola(escola)));
     }
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateEscola(@PathVariable String id, @RequestParam("nome") String nome){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.updateModel(id, nome)));
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.updateEscola(id, nome)));
     }
 
     @GetMapping(value = "/all-registry", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Escola> allEscola(){
-        return this.escolaImpl.findAll();
+    public ResponseEntity<String> allEscola(){
+        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.findAll()));
     }
 
     @GetMapping(value = "/specific/{id}")
-    public String findSpecificEscola(@PathVariable String id){
-        return new Gson().toJson(this.escolaImpl.findById(id));
+    public ResponseEntity<String> findSpecificEscola(@PathVariable String id){
+
+        String jsonResponse = gson.toJson(this.escolaImpl.findById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+
     }
 
-    @DeleteMapping(value = "/delete")
-    public void deleteEscola(@RequestParam String id){
-        this.escolaImpl.deleteModel(id);
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<String> deleteEscola(@PathVariable String id){
+        try {
+            this.escolaImpl.deleteEscola(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson("registro deletado com sucesso !"));
+        }
+        catch (ObjectNotFoundInSearchOrRuntimeError e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Gson().toJson(e.getMessage()));
+        }
     }
 
     @PostMapping(value = "/add-sala/{id}")
-    public ResponseEntity<String> addSalaEscola(@PathVariable("idEscola") String idEscola,
-                                                      @RequestParam(value = "salaID") String idSala){
+    public ResponseEntity<String> addSalaEscola(@PathVariable("id") String idEscola,
+                                                @RequestParam(value = "salaID") String idSala){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.addSalaEscola(idEscola,idSala)));
     }
 }

@@ -24,17 +24,7 @@ public class PessoaController {
     public ResponseEntity<String> savePessoa(@RequestBody(required = false) Pessoa pessoa){
 
         String jsonResponse = gson.toJson(this.pessoaImpl.savePessoa(pessoa));
-
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-        }
-        catch (ObjectMalformed e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(jsonResponse);
-        }
-        catch (ObjectNotFoundInSearchOrRuntimeError e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-        }
-
+        return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
     }
 
     @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,21 +36,8 @@ public class PessoaController {
         String jsonResponse = gson.toJson(this.pessoaImpl
                 .updatePessoa(id, numeroTelefone, cargo));
 
-        try {
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(jsonResponse);
-        }
-        catch (ObjectNotFoundInSearchOrRuntimeError e){
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(jsonResponse);
-        }
-        catch (ObjectMalformed e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(jsonResponse);
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+
     }
 
     @GetMapping(value = "/all-registry", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,13 +49,7 @@ public class PessoaController {
     public ResponseEntity<String> findSpecificPessoa(@PathVariable String id){
 
         String jsonResponse = gson.toJson(this.pessoaImpl.findByIdPessoa(id));
-
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-        }
-        catch (ObjectNotFoundInSearchOrRuntimeError e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
     }
 
     @DeleteMapping(value = "/delete/{id}")

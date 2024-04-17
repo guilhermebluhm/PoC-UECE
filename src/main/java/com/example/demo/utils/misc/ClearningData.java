@@ -15,7 +15,7 @@ public class ClearningData {
         pessoa.setDocumento(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getDocumento()));
         pessoa.setMatricula(RemoveWhiteSpacesAndMergeDataToValidate.getData(pessoa.getMatricula()));
 
-        checkIntegrityData(pessoa);
+        checkIntegrityDataForPessoa(pessoa);
         correctDataInField(pessoa, null, null);
 
         if(pessoa.getDocumento().length() == 14 || pessoa.getDocumento().length() == 18){
@@ -28,7 +28,7 @@ public class ClearningData {
 
     }
 
-    public static void checkIntegrityData(Pessoa pessoa){
+    public static void checkIntegrityDataForPessoa(Pessoa pessoa){
 
         if((pessoa.getCargo() == null || pessoa.getCargo().isEmpty())
                 || (pessoa.getMatricula() == null || pessoa.getMatricula().isEmpty())
@@ -75,9 +75,24 @@ public class ClearningData {
         }
 
         else if(escola != null){
+
+            String CepHigienizado = escola.getCidade().getEndereco().getCep().replaceAll(RegexTypes.CLEAR_REGEX_CPF_CNPJ.getCodeType(),"");
+
             if (
                     !RemoveWhiteSpacesAndMergeDataToValidate.getData(escola.getNomeEscola())
                             .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                    || !RemoveWhiteSpacesAndMergeDataToValidate.getData(escola.getCidade()
+                            .getCidade())
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                    || !RemoveWhiteSpacesAndMergeDataToValidate
+                            .getData(escola.getCidade().getEstado())
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+                    || !RemoveWhiteSpacesAndMergeDataToValidate
+                            .getData(CepHigienizado)
+                            .matches(RegexTypes.CHECK_REGEX_TO_ONLY_ALPHABETIC.getCodeType())
+
+                    //ideia da validacao basica
+
             ) {
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
             }

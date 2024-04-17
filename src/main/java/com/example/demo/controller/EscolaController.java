@@ -22,7 +22,7 @@ public class EscolaController {
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveEscola(@RequestBody Escola escola){
-        return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.saveEscola(escola)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Gson().toJson(this.escolaImpl.saveEscola(escola)));
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -45,13 +45,8 @@ public class EscolaController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteEscola(@PathVariable String id){
-        try {
-            this.escolaImpl.deleteEscola(id);
-            return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson("registro deletado com sucesso !"));
-        }
-        catch (ObjectNotFoundInSearchOrRuntimeError e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Gson().toJson(e.getMessage()));
-        }
+        this.escolaImpl.deleteEscola(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 /*    @PostMapping(value = "/add-sala/{id}")

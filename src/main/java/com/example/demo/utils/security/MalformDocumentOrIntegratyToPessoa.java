@@ -15,10 +15,10 @@ public class MalformDocumentOrIntegratyToPessoa {
     public ResponseEntity<FieldForHandlerError> objectErrorNotFoundHandler(ObjectMalformed e,
                                                                            HttpServletRequest req){
         FieldForHandlerError err = new FieldForHandlerError(LocalDateTime.now(),
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 e.getMessage(),
                 req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
 }

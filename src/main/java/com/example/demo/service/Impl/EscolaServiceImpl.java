@@ -25,6 +25,7 @@ public class EscolaServiceImpl implements EscolaService {
 
     @Override
     public Escola saveEscola(Escola escola) {
+        ClearningData.correctDataInField(null, null, escola);
         return this.escolaRepository.save(escola);
     }
 
@@ -55,14 +56,14 @@ public class EscolaServiceImpl implements EscolaService {
 
     @Override
     public void deleteEscola(String id) {
-        if(this.escolaRepository.findById(Long.valueOf(id)).isPresent()){
+        if(this.escolaRepository.findById(Long.valueOf(id)).isPresent())
             this.escolaRepository.delete(this.escolaRepository.findById(Long.valueOf(id)).get());
-        }
-        throw new ObjectNotFoundInSearchOrRuntimeError(ErrorTypes.OBJETO_NAO_LOCALIZADO.toString());
+        else
+            throw new ObjectNotFoundInSearchOrRuntimeError("escola nao localizada para o ID = " + id);
     }
 
     //refatorar esse metodo para permitir 1 ou N salas
-    @Override
+/*    @Override
     public Escola addSalaEscola(String idEscola, String idSala) {
         Escola escola = this.findById(idEscola);
         if(this.salaRepository.findById(Long.valueOf(idSala)).isPresent()){
@@ -74,7 +75,7 @@ public class EscolaServiceImpl implements EscolaService {
             throw new RuntimeException("erro geral da aplicacao - descricao generica");
         }
         return escola;
-    }
+    }*/
 
 
 }

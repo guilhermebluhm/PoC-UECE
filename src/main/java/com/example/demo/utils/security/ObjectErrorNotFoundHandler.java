@@ -15,10 +15,10 @@ public class ObjectErrorNotFoundHandler {
     public ResponseEntity<FieldForHandlerError> objectErrorNotFoundHandler(ObjectNotFoundInSearchOrRuntimeError e,
                                                                            HttpServletRequest req){
         FieldForHandlerError err = new FieldForHandlerError(LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
                 e.getMessage(),
                 req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
     }
 
 }

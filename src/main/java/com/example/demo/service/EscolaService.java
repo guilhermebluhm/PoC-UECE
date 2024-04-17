@@ -14,6 +14,6 @@ public interface EscolaService {
     Escola findById(String id);
     Escola updateEscola(String id, String nomeEscola);
     void deleteEscola(String id);
-    Escola addSalaEscola(String idEscola, String idSala);
+    //Escola addSalaEscola(String idEscola, String idSala);
 
 }

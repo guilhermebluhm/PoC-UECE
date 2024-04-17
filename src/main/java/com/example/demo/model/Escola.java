@@ -26,7 +26,7 @@ public class Escola implements Serializable {
 
     private Boolean disponivel;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "sala_id", referencedColumnName = "id")
     private List<Sala> listaSala = new ArrayList<>();
 

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/pessoa")
+@RequestMapping(value = "/pessoas")
 public class PessoaController {
 
     @Autowired
@@ -20,14 +20,14 @@ public class PessoaController {
 
     private final Gson gson = new Gson();
 
-    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> savePessoa(@RequestBody(required = false) Pessoa pessoa){
 
         String jsonResponse = gson.toJson(this.pessoaImpl.savePessoa(pessoa));
         return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
     }
 
-    @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updatePessoa(
                                @PathVariable String id,
                                @RequestParam(value = "numero-telefone", required = false) String numeroTelefone,
@@ -40,19 +40,19 @@ public class PessoaController {
 
     }
 
-    @GetMapping(value = "/all-registry", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> allPessoa(){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.pessoaImpl.findAll()));
     }
 
-    @GetMapping(value = "/specific/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<String> findSpecificPessoa(@PathVariable String id){
 
         String jsonResponse = gson.toJson(this.pessoaImpl.findByIdPessoa(id));
         return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deletePessoa(@PathVariable String id){
         try {
             this.pessoaImpl.deletePessoa(id);

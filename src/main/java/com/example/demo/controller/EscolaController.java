@@ -20,22 +20,22 @@ public class EscolaController {
     private EscolaServiceImpl escolaImpl;
     private final Gson gson = new Gson();
 
-    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveEscola(@RequestBody Escola escola){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.saveEscola(escola)));
     }
 
-    @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateEscola(@PathVariable String id, @RequestParam("nome") String nome){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.updateEscola(id, nome)));
     }
 
-    @GetMapping(value = "/all-registry", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> allEscola(){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.findAll()));
     }
 
-    @GetMapping(value = "/specific/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findSpecificEscola(@PathVariable String id){
 
         String jsonResponse = gson.toJson(this.escolaImpl.findById(id));
@@ -43,7 +43,7 @@ public class EscolaController {
 
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteEscola(@PathVariable String id){
         try {
             this.escolaImpl.deleteEscola(id);
@@ -54,9 +54,9 @@ public class EscolaController {
         }
     }
 
-    @PostMapping(value = "/add-sala/{id}")
+/*    @PostMapping(value = "/add-sala/{id}")
     public ResponseEntity<String> addSalaEscola(@PathVariable("id") String idEscola,
                                                 @RequestParam(value = "salaID") String idSala){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.escolaImpl.addSalaEscola(idEscola,idSala)));
-    }
+    }*/
 }

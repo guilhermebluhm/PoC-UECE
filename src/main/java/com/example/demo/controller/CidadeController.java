@@ -6,6 +6,7 @@ import com.example.demo.utils.security.ObjectNotFoundInSearchOrRuntimeError;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class CidadeController {
         return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
     }*/
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> removeCidade(@PathVariable String id){
         try {
             this.cidadeImpl.deleteCidade(id);
@@ -35,7 +36,7 @@ public class CidadeController {
         }
     }
 
-    @GetMapping(value = "/all-registry")
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> allCidade(){
         return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(this.cidadeImpl.findAll()));
     }

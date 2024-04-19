@@ -12,6 +12,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Endereco implements Serializable {
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cidade_id", referencedColumnName = "id")
+    public Cidade cidade;
+
     private String logradouro;
     private String bairro;
     private String cep;

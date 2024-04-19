@@ -26,13 +26,12 @@ public class Escola implements Serializable {
 
     private Boolean disponivel;
 
+    @Embedded
+    private Endereco endereco;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "sala_id", referencedColumnName = "id")
     private List<Sala> listaSala = new ArrayList<>();
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cidade_id", referencedColumnName = "id")
-    public Cidade cidade;
 
     public Escola(String nomeEscola) {
         this.nomeEscola = nomeEscola;
@@ -44,13 +43,5 @@ public class Escola implements Serializable {
 
     public void setListaSala(List<Sala> listaSala) {
         this.listaSala = listaSala;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
     }
 }

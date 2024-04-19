@@ -56,7 +56,7 @@ public class ClearningData {
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
             }
         }
-        else if(cidade != null){
+/*        else if(cidade != null){
 
             if (
                             !RemoveWhiteSpacesAndMergeDataToValidate.getData(cidade.getCidade())
@@ -72,9 +72,9 @@ public class ClearningData {
             ) {
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
             }
-        }
+        }*/
 
-        else if(escola != null){
+        /*else if(escola != null){
 
             String CepHigienizado = escola.getCidade().getEndereco().getCep().replaceAll(RegexTypes.CLEAR_REGEX_CPF_CNPJ.getCodeType(),"");
 
@@ -96,7 +96,7 @@ public class ClearningData {
             ) {
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
             }
-        }
+        }*/
 
     }
 

@@ -17,15 +17,12 @@ public class Cidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100, nullable = false)
-    private String cidade;
+    private String nome;
     @Column(length = 100, nullable = false)
     private String estado;
 
-    @Embedded
-    private Endereco endereco;
-
     public Cidade(String cidade, String estado) {
-        this.cidade = cidade;
+        this.nome = cidade;
         this.estado = estado;
     }
 

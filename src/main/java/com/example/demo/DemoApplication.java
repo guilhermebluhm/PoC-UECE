@@ -1,11 +1,11 @@
 package com.example.demo;
 
-import com.example.demo.utils.logic_python.PythonExecuter;
+import com.example.demo.utils.misc.ReadFileXLSX;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.script.*;
-import java.io.*;
+import javax.script.ScriptException;
+import java.io.IOException;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -16,6 +16,10 @@ public class DemoApplication {
 		exec.executeScript();
 		*/
 		SpringApplication.run(DemoApplication.class, args);
+
+		//ReadFileXLSX excel = new ReadFileXLSX();
+		//excel.getData();
+
 	}
 
 }

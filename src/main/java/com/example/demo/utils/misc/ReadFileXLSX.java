@@ -2,7 +2,6 @@ package com.example.demo.utils.misc;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.python.antlr.ast.Str;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ReadFileXLSX {
 
@@ -32,8 +30,12 @@ public class ReadFileXLSX {
 
             //para identificar os agrupamentos baseado em COORD
             for (Row row : sheet) {
-                //condicao de parada da coluna
-                //indice 0 -> visitar para saber os limites para cada agrupamento
+
+                /*
+                    condicao de parada da coluna
+                    indice 0 -> visitar para saber os limites para cada agrupamento
+                */
+
                 Cell cell = row.getCell(0);
                 if (cell == null || cell.getCellType() == CellType.BLANK) {
                     break;
@@ -57,6 +59,11 @@ public class ReadFileXLSX {
             for (List<String> v : controle.values()) {
                 limitesAgrupamentos.add(v.size());
             }
+
+            /*
+                aqui já consigo saber quantos objetos devo criar
+                baseado no arquivo XLSX
+            */
 
             String nomeEscola = "";
             String endereco = "";

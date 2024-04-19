@@ -2,15 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Escola;
 import com.example.demo.service.Impl.EscolaServiceImpl;
-import com.example.demo.utils.security.ObjectNotFoundInSearchOrRuntimeError;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/escola")

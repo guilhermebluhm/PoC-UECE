@@ -97,6 +97,7 @@ public class ClearningData {
                 throw new ObjectMalformed(ErrorTypes.DADOS_INVALIDOS_NO_OBJETO.toString());
             }
         }
+
     }
 
 }

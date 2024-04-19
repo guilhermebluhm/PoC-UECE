@@ -62,6 +62,11 @@ public class ReadFileXLSX {
             String endereco = "";
             String bairro = "";
 
+            /*
+                col = 0 sera a coluna de agrupamento que e COORD
+                se necessario incluir, colocar col = 0 no laço
+             */
+
             for (int col = 1; col < maxNumOfColumns - 1; col += 1) {
 
                 /*
@@ -126,14 +131,18 @@ public class ReadFileXLSX {
 
                             if(qdoParar < limitesAgrupamentos.get(controleRepeticoes)){
                                 String cellV = getCellValue(row.getCell(col));
+                                qdoParar+=1;
                                 System.out.println(cellV);
 
                             }
 
-                            if(qdoParar == limitesAgrupamentos.get(controleRepeticoes))
-                                break;
+                            if(qdoParar == limitesAgrupamentos.get(controleRepeticoes)) {
+                                controleRepeticoes += 1;
+                                qdoParar = 0;
+                            }
 
-                            qdoParar+=1;
+                            if(controleRepeticoes == limitesAgrupamentos.size())
+                                break;
 
                         }
 

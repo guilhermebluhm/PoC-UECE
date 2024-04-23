@@ -14,15 +14,15 @@ public class ReadFileXLSX {
 
     int it = 0;
     String cellValue = "";
-    private static List<String> agrupamentos;
+    private List<String> agrupamentos;
     private List<Integer> limitesAgrupamentos = new ArrayList<>();
     private HashMap<Integer, List<String>> controle = new HashMap<>();
 
     public void getData() {
 
-        String pathToFile = "C:\\Users\\guilherme.bluhm\\Documents\\GitHub\\PoC-UECE\\src\\main\\resources\\arquivosXSLS\\mapaItapipoca.xlsx";
+        String pathToFile = "C:\\Users\\guilherme.bluhm\\Documents\\GitHub\\PoC-UECE\\src\\main\\resources\\arquivosXLSX\\mapaItapipoca.xlsx";
 
-        try (FileInputStream file = new FileInputStream(new File(pathToFile));
+        try (FileInputStream file = new FileInputStream((pathToFile));
              Workbook workbook = new XSSFWorkbook(file)) {
 
             Sheet sheet = workbook.getSheetAt(0); // Acessa a primeira aba da planilha
